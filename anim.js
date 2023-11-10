@@ -3,13 +3,14 @@ window.onload = function () {
 };
 var index = 1;
 var index2 = 0;
+let sorryInterval;
 function switchImage() {
   // for(var i = 1; i < 10; i++){
   //     (function (index){
   //         setTimeout(function() {
   showImage(index);
   index++;
-  if(index >= 10) index = 1;
+  if (index >= 10) index = 1;
   //         },500 * index);
   //     })(i);
   // }
@@ -24,7 +25,7 @@ function switchImageCity() {
   //         setTimeout(function(){
   showImageCity(index2);
   index2++;
-  if(index2 >= 59) index2 = 0;
+  if (index2 >= 59) index2 = 0;
   //         },1000 * index);
   //     })(i);
   // }
@@ -51,45 +52,50 @@ function move() {
   }, 200);
 }
 
-const imageUrls = [
-    'images/meme0.png',
-    'images/meme1.png',
-    'images/meme2.png'
-];
+const imageUrls = ["images/meme0.png", "images/meme1.png", "images/meme2.png"];
 
 function createRandomDiv() {
-    const $div = $('<div>').css({
-        position: 'absolute',
-        width: getRandomNumber(50, 300) + 'px',
-        height: getRandomNumber(200, 500) + 'px',
-        top: getRandomNumber(0, window.innerHeight - 200) + 'px',
-        left: getRandomNumber(0, window.innerWidth - 200) + 'px'
-    });
+  const $div = $("<div>").css({
+    position: "absolute",
+    width: getRandomNumber(50, 300) + "px",
+    height: getRandomNumber(200, 500) + "px",
+    top: getRandomNumber(0, window.innerHeight - 200) + "px",
+    left: getRandomNumber(0, window.innerWidth - 200) + "px",
+  });
 
-    const $img = $('<img>').attr('src', getRandomImageUrl()).css({
-        width: '100%',
-        height: '100%',
-        objectFit: 'contain'
-    });
+  const $img = $("<img>").attr("src", getRandomImageUrl()).css({
+    width: "100%",
+    height: "100%",
+    objectFit: "contain",
+  });
 
-    // Apply random rotation and flip transformations
-    const randomRotation = getRandomNumber(0, 360);
-    const randomFlipX = Math.random() < 0.5;
-    const randomFlipY = Math.random() < 0.5;
-    $img.css('transform', `rotate(${randomRotation}deg) scaleX(${randomFlipX ? -1 : 1}) scaleY(${randomFlipY ? -1 : 1})`);
+  const randomRotation = getRandomNumber(0, 360);
+  const randomFlipX = Math.random() < 0.5;
+  const randomFlipY = Math.random() < 0.5;
+  $img.css(
+    "transform",
+    `rotate(${randomRotation}deg) scaleX(${randomFlipX ? -1 : 1}) scaleY(${
+      randomFlipY ? -1 : 1
+    })`
+  );
 
-    $div.append($img);
-    $('body').append($div);
+  $div.append($img);
+  $("#sorry").append($div);
 }
 
 function getRandomNumber(min, max) {
-    return Math.floor(Math.random() * (max - min + 1)) + min;
+  return Math.floor(Math.random() * (max - min + 1)) + min;
 }
 
 function getRandomImageUrl() {
-    return imageUrls[Math.floor(Math.random() * imageUrls.length)];
+  return imageUrls[Math.floor(Math.random() * imageUrls.length)];
 }
 
 function button() {
-    setInterval(createRandomDiv, 200);
+  sorryInterval = setInterval(createRandomDiv, 200);
+}
+
+function clearSorry() {
+  $("#sorry").html("");
+  clearInterval(sorryInterval);
 }
