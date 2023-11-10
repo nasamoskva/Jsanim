@@ -1,5 +1,16 @@
 .main{
-    width: 200px;
-    height: 200px;
+    position: relative;
+    width: 1080px;
+    height: 768px;
     border: 2px solid red;
-}
+    }
+    #spiderman{
+        position: absolute;
+        right: 1.5%;
+    }
+    #city{
+        position: absolute;
+        bottom: 1%;
+        width: 1080px;
+        height: 550px;
+    }
